@@ -326,8 +326,23 @@
                 let width = window.innerWidth; let height = window.innerHeight;
                 canvas.width = width; canvas.height = height;
                 const stars = [];
-                for (let i = 0; i < 400; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.3, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
-                function animate() {
+                // Further reduce stars to 150 for minimal load
+                for (let i = 0; i < 150; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.2, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
+
+                let lastTime = 0;
+                function animate(time) {
+                    if (document.visibilityState !== 'visible') {
+                        requestAnimationFrame(animate);
+                        return;
+                    }
+
+                    // Throttle to ~30 FPS to save energy
+                    if (time - lastTime < 33) {
+                        requestAnimationFrame(animate);
+                        return;
+                    }
+                    lastTime = time;
+
                     ctx.clearRect(0, 0, width, height);
                     stars.forEach(star => {
                         ctx.beginPath(); ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2); ctx.fillStyle = star.color; ctx.fill();
@@ -335,7 +350,7 @@
                     });
                     requestAnimationFrame(animate);
                 }
-                animate();
+                requestAnimationFrame(animate);
                 window.addEventListener('resize', () => { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; });
             }, []);
             return <canvas id="star-canvas" ref={canvasRef} />;
@@ -652,9 +667,17 @@
 
                 camera.position.z = 18;
 
+                let lastTime = 0;
                 let reqId;
-                const animate = () => {
+                const animate = (time) => {
                     reqId = requestAnimationFrame(animate);
+
+                    if (document.visibilityState !== 'visible') return;
+
+                    // Throttle 3D to 30 FPS for cooling
+                    if (time - lastTime < 33) return;
+                    lastTime = time;
+
                     if (earthRef.current) earthRef.current.rotation.y += 0.0005;
                     if (curveRef.current && satMeshRef.current && satMeshRef.current.visible) {
                         progressRef.current += 0.0005;
@@ -665,7 +688,7 @@
                     }
                     renderer.render(scene, camera);
                 };
-                animate();
+                requestAnimationFrame(animate);
 
                 const handleResize = () => {
                     if (!mountRef.current) return;
