@@ -614,7 +614,7 @@
                 scene.add(earthGroup);
                 earthRef.current = earthGroup;
 
-                const geometry = new THREE.SphereGeometry(5, 64, 64);
+                const geometry = new THREE.SphereGeometry(4, 64, 64);
                 const material = new THREE.MeshPhongMaterial({
                     color: 0x0f1e3d,
                     emissive: 0x051020,
@@ -694,7 +694,7 @@
                     .then(data => {
                         if (data.trajectory && data.trajectory.length > 0) {
                             const points = data.trajectory.map(p => {
-                                const scale = 5 / 6371;
+                                const scale = 4 / 6371;
                                 return new THREE.Vector3(p.x * scale, p.y * scale, p.z * scale);
                             });
                             const curve = new THREE.CatmullRomCurve3(points);
