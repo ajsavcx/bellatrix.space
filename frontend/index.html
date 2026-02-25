@@ -470,7 +470,7 @@
             );
         }
 
-        function SatelliteCard({ sat, onClick, t }) {
+        function SatelliteCard({ sat, onClick, t, selectedSat }) {
             // Normalize risk level to Title Case for CSS consistency
             const riskClass = sat.risk_level
                 ? sat.risk_level.charAt(0).toUpperCase() + sat.risk_level.slice(1).toLowerCase()
@@ -483,6 +483,7 @@
                 'Medium': '#ffaa00',
                 'High': '#ff0055'
             };
+            const badgeColor = riskColors[riskClass] || '#00f3ff';
             const isSelected = selectedSat && selectedSat.norad_id === sat.norad_id;
 
             return (
