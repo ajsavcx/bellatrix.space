@@ -46,7 +46,7 @@ import analytics_engine
 
 app = FastAPI(
     title="Bellatrix Orbital Risk API",
-    description="AI-powered satellite tracking and orbital risk analysis platform.",
+    description="Advanced satellite tracking and orbital risk analysis platform.",
     version="1.0.0"
 )
 

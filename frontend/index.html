@@ -7,7 +7,7 @@
     <title>Bellatrix | Orbital Intelligence Platform</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="AI-powered satellite risk monitoring and orbital analytics.">
+    <meta name="description" content="Advanced satellite risk monitoring and orbital analytics.">
     <meta name="theme-color" content="#05070a">
 
     <!-- Fonts -->
@@ -31,13 +31,15 @@
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-        const API_BASE = "/api";
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:8000/api'
+            : '/api';
 
         // --- TRANSLATIONS ---
         const TRANSLATIONS = {
             en: {
-                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "AI Forecast",
-                home_sub: "AI-powered orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
+                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "Predictive Analytics",
+                home_sub: "Advanced orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
                 start_btn: "Start Analysis",
                 mission_title: "Orbital Integrity",
                 mission_txt: "Low Earth Orbit is becoming dangerously crowded. With over 27,000 tracked objects, the risk of Kessler Syndrome—a cascade of collisions—is real. Bellatrix provides the intelligence needed to navigate this new frontier safely.",
@@ -51,7 +53,7 @@
                 guide_2_t: "2. View Telemetry",
                 guide_2_d: "Analyze inclination, period, and real-time altitude in the detail panel.",
                 guide_3_t: "3. Analyze Risk",
-                guide_3_d: "Monitor collision probabilities and AI stability forecasts.",
+                guide_3_d: "Monitor collision probabilities and orbital stability forecasts.",
                 calc_init: "Initializing Uplink...",
                 calc_select: "Select a satellite to begin analysis",
                 detail_title: "Telemetry Analysis",
@@ -74,15 +76,15 @@
                 target_3_t: "Enthusiasts",
                 target_3_d: "Track ISS and global mega-constellations.",
                 why_stem_t: "Science & Intelligence",
-                why_stem_d: "Unifying Physics, AI, and Big Data.",
+                why_stem_d: "Unifying Physics, Automation, and Big Data.",
 
                 // New Keys
-                f_title: "AI Intelligence Forecast",
+                f_title: "Predictive Analytics Forecast",
                 f_risk_trend: "Satellite Risk Trend",
-                f_neural_summary: "Neural Forecast Summary",
+                f_neural_summary: "Orbital Forecast Summary",
                 f_stability: "Stability Index",
                 f_avg_alt: "Avg Altitude",
-                f_empty: "Select a satellite in Calculator to view AI trends",
+                f_empty: "Select a satellite in Calculator to view trends",
 
                 m_title: "Global Ground Track",
                 m_tracking: "Tracking",
@@ -102,7 +104,7 @@
                 s_policy: "Data Policy",
                 s_calc: "Calculator (Tracking)",
                 s_map: "World Map (Visualizer)",
-                s_forecast: "AI Forecast (Analytics)",
+                s_forecast: "Predictive Analytics",
                 s_guide: "User Guide",
                 s_prop: "Orbital Propagation",
                 s_risk: "Risk Assessment",
@@ -143,8 +145,8 @@
                 btn_clear: "Clear History"
             },
             ru: {
-                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "AI Прогноз",
-                home_sub: "Платформа орбитальной разведки на базе ИИ. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
+                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "Прогноз",
+                home_sub: "Платформа орбитальной разведки. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
                 start_btn: "Начать Анализ",
                 mission_title: "Орбитальная Целостность",
                 mission_txt: "Низкая околоземная орбита опасно перегружена. При наличии более 27 000 отслеживаемых объектов риск Синдрома Кесслера — каскада столкновений — вполне реален. Bellatrix предоставляет разведданные для безопасной навигации в этом новом фронтире.",
@@ -158,7 +160,7 @@
                 guide_2_t: "2. Просмотр телеметрии",
                 guide_2_d: "Анализируйте наклонение, период и высоту в реальном времени на панели деталей.",
                 guide_3_t: "3. Анализ рисков",
-                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности от ИИ.",
+                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности.",
                 calc_init: "Инициализация связи...",
                 calc_select: "Выберите спутник для начала анализа",
                 detail_title: "Анализ телеметрии",
@@ -184,12 +186,12 @@
                 why_stem_d: "Синтез физики, ИИ и больших данных.",
 
                 // New Keys
-                f_title: "Прогноз ИИ-аналитики",
+                f_title: "Прогноз аналитики",
                 f_risk_trend: "Тренд риска спутника",
-                f_neural_summary: "Нейронная сводка прогноза",
+                f_neural_summary: "Сводка прогноза",
                 f_stability: "Индекс стабильности",
                 f_avg_alt: "Средняя высота",
-                f_empty: "Выберите спутник в Калькуляторе для просмотра трендов ИИ",
+                f_empty: "Выберите спутник в Калькуляторе для просмотра трендов",
 
                 m_title: "Глобальная наземная трасса",
                 m_tracking: "Отслеживание",
@@ -209,7 +211,7 @@
                 s_policy: "Политика данных",
                 s_calc: "Калькулятор (Мониторинг)",
                 s_map: "Карта мира (Визуализатор)",
-                s_forecast: "AI Прогноз (Аналитика)",
+                s_forecast: "Прогноз (Аналитика)",
                 s_guide: "Справка",
                 s_prop: "Прогнозирование орбит",
                 s_risk: "Оценка рисков",
@@ -324,7 +326,7 @@
                 let width = window.innerWidth; let height = window.innerHeight;
                 canvas.width = width; canvas.height = height;
                 const stars = [];
-                for (let i = 0; i < 300; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.3, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
+                for (let i = 0; i < 800; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.3, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
                 function animate() {
                     ctx.clearRect(0, 0, width, height);
                     stars.forEach(star => {
@@ -481,10 +483,14 @@
                 'Medium': '#ffaa00',
                 'High': '#ff0055'
             };
-            const badgeColor = riskColors[riskClass] || '#00ff88';
+            const isSelected = selectedSat && selectedSat.norad_id === sat.norad_id;
 
             return (
-                <div className={`sat-card risk-${riskClass}`} onClick={() => onClick(sat)} style={{ borderLeft: `4px solid ${badgeColor}` }}>
+                <div
+                    className={`sat-card risk-${riskClass} ${isSelected ? 'selected' : ''}`}
+                    onClick={() => { console.log("Selecting sat:", sat.norad_id); onClick(sat); }}
+                    style={{ borderLeft: `4px solid ${badgeColor}`, border: isSelected ? `1px solid ${badgeColor}` : '' }}
+                >
                     <div className="card-header">
                         <span className="sat-name">{sat.name}</span>
                         <span className="sat-type" style={{ backgroundColor: badgeColor, color: '#000', fontWeight: 'bold' }}>{riskClass.toUpperCase()}</span>
@@ -588,12 +594,11 @@
             const earthRef = useRef(null);
             const satMeshRef = useRef(null);
             const curveRef = useRef(null);
-            const progressRef = useRef(0); // 0 to 1 for animation
+            const progressRef = useRef(0);
 
             useEffect(() => {
                 if (!mountRef.current) return;
 
-                // Init Scene
                 const scene = new THREE.Scene();
                 sceneRef.current = scene;
 
@@ -604,49 +609,30 @@
                 mountRef.current.innerHTML = '';
                 mountRef.current.appendChild(renderer.domElement);
 
-                // --- EARTH ---
                 const earthGroup = new THREE.Group();
                 scene.add(earthGroup);
                 earthRef.current = earthGroup;
 
-                // 1. Ocean Base (Solid Blue)
                 const geometry = new THREE.SphereGeometry(5, 64, 64);
                 const material = new THREE.MeshPhongMaterial({
                     color: 0x0f1e3d,
                     emissive: 0x051020,
                     specular: 0x111111,
-                    shininess: 25,
-                    flatShading: false
+                    shininess: 25
                 });
                 const earth = new THREE.Mesh(geometry, material);
                 earthGroup.add(earth);
 
-                // 2. Wireframe Overlay
                 const wireGeo = new THREE.WireframeGeometry(geometry);
                 const wireMat = new THREE.LineBasicMaterial({ color: 0x3a5a8c, transparent: true, opacity: 0.1 });
                 const wireglobe = new THREE.LineSegments(wireGeo, wireMat);
                 earthGroup.add(wireglobe);
 
-                // 3. Atmosphere Glow
-                const atmoGeo = new THREE.SphereGeometry(5.2, 64, 64);
-                const atmoMat = new THREE.MeshPhongMaterial({
-                    color: 0x4facfe,
-                    transparent: true,
-                    opacity: 0.15,
-                    side: THREE.BackSide,
-                    blending: THREE.AdditiveBlending
-                });
-                const atmosphere = new THREE.Mesh(atmoGeo, atmoMat);
-                scene.add(atmosphere);
-
-                // --- SATELLITE MARKER ---
                 const satGroup = new THREE.Group();
-                // Body
                 const bodyGeo = new THREE.BoxGeometry(0.4, 0.4, 0.4);
                 const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffd700, roughness: 0.3, metalness: 0.8 });
                 const body = new THREE.Mesh(bodyGeo, bodyMat);
                 satGroup.add(body);
-                // Panels
                 const panelGeo = new THREE.BoxGeometry(1.5, 0.05, 0.5);
                 const panelMat = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.5, metalness: 0.5 });
                 const panel1 = new THREE.Mesh(panelGeo, panelMat);
@@ -654,68 +640,54 @@
                 panel2.rotation.y = Math.PI / 2;
                 satGroup.add(panel1);
                 satGroup.add(panel2);
-
                 satGroup.visible = false;
                 scene.add(satGroup);
                 satMeshRef.current = satGroup;
 
-                // Lighting
                 const sunLight = new THREE.DirectionalLight(0xffffff, 2);
                 sunLight.position.set(20, 10, 10);
                 scene.add(sunLight);
-                const ambientLight = new THREE.AmbientLight(0x404040);
-                scene.add(ambientLight);
+                scene.add(new THREE.AmbientLight(0x404040));
 
                 camera.position.z = 18;
 
-                // Animation Loop
                 let reqId;
                 const animate = () => {
                     reqId = requestAnimationFrame(animate);
-
-                    // Earth Rotation
                     if (earthRef.current) earthRef.current.rotation.y += 0.0005;
-
-                    // Satellite Movement along path
                     if (curveRef.current && satMeshRef.current && satMeshRef.current.visible) {
-                        progressRef.current += 0.0005; // Speed factor
+                        progressRef.current += 0.0005;
                         if (progressRef.current > 1) progressRef.current = 0;
-
                         const point = curveRef.current.getPoint(progressRef.current);
                         satMeshRef.current.position.copy(point);
                         satMeshRef.current.lookAt(0, 0, 0);
                     }
-
-                    if (renderer && scene && camera) {
-                        renderer.render(scene, camera);
-                    }
+                    renderer.render(scene, camera);
                 };
                 animate();
 
-                const handleResize = () => { if (!mountRef.current) return; renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight); camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight; camera.updateProjectionMatrix(); };
+                const handleResize = () => {
+                    if (!mountRef.current) return;
+                    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+                    camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+                    camera.updateProjectionMatrix();
+                };
                 window.addEventListener('resize', handleResize);
-
-                // Cleanup to prevent WebGL context loss and crashes
                 return () => {
                     window.removeEventListener('resize', handleResize);
                     cancelAnimationFrame(reqId);
-                    if (mountRef.current) mountRef.current.innerHTML = '';
                     renderer.dispose();
                 };
             }, []);
 
-            // Visual Trajectory Logic
             useEffect(() => {
                 if (!selectedSat || !sceneRef.current) return;
-
-                // Clean old
                 const oldLine = sceneRef.current.getObjectByName("trajectoryLine");
                 if (oldLine) sceneRef.current.remove(oldLine);
                 if (satMeshRef.current) satMeshRef.current.visible = false;
                 curveRef.current = null;
                 progressRef.current = 0;
 
-                // Fetch new trajectory
                 fetch(`${API_BASE}/propagate/${selectedSat.norad_id}`)
                     .then(res => res.json())
                     .then(data => {
@@ -724,34 +696,30 @@
                                 const scale = 5 / 6371;
                                 return new THREE.Vector3(p.x * scale, p.y * scale, p.z * scale);
                             });
-
-                            // Close loop for continuous animation if it's a full orbit? 
-                            // Propagate endpoint gives 90 mins (approx 1 orbit). 
-                            // Let's assume it's an open curve for now.
-
                             const curve = new THREE.CatmullRomCurve3(points);
                             curveRef.current = curve;
-
-                            // Using Points for a clearly visible "dotted" line in 3D
                             const pGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(200));
-                            const pMaterial = new THREE.PointsMaterial({
-                                color: 0x00f3ff,
-                                size: 0.15,
-                                transparent: true,
-                                opacity: 0.7,
-                                sizeAttenuation: true
-                            });
+                            const pMaterial = new THREE.PointsMaterial({ color: 0x00f3ff, size: 0.15, transparent: true, opacity: 0.7 });
                             const pointsCloud = new THREE.Points(pGeometry, pMaterial);
                             pointsCloud.name = "trajectoryLine";
                             sceneRef.current.add(pointsCloud);
-
+                            if (satMeshRef.current) satMeshRef.current.visible = true;
+                        } else {
+                            // Fallback: Show at a fixed position far out if no trajectory
                             if (satMeshRef.current) {
+                                satMeshRef.current.position.set(0, 8, 0);
                                 satMeshRef.current.visible = true;
                             }
                         }
                     })
-                    .catch(err => console.error("Error fetching path:", err));
-
+                    .catch(e => {
+                        console.error(e);
+                        // Fallback position
+                        if (satMeshRef.current) {
+                            satMeshRef.current.position.set(0, 8, 0);
+                            satMeshRef.current.visible = true;
+                        }
+                    });
             }, [selectedSat]);
 
             return <div className="viz-wrapper"><div className="viz-container"><div ref={mountRef} style={{ width: '100%', height: '100%' }}></div></div></div>;
@@ -1003,27 +971,39 @@
             // Load from localStorage on mount, then fetch defaults
             useEffect(() => {
                 const saved = localStorage.getItem(HISTORY_KEY);
+                let initialSats = [];
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
-                        if (parsed.length > 0) {
-                            setSatellites(parsed);
-                            setLoading(false);
-                            return;
-                        }
-                    } catch (e) { /* ignore corrupt cache */ }
+                        if (Array.isArray(parsed)) initialSats = parsed;
+                    } catch (e) { console.error("Cache corrupt"); }
                 }
+
+                // Always fetch defaults but merge with existing to avoid "disappearing" ones
                 fetch(`${API_BASE}/satellites`)
                     .then(res => res.json())
-                    .then(data => { setSatellites(data); setLoading(false); })
-                    .catch(err => { console.error("Failed to fetch satellites:", err); setLoading(false); });
+                    .then(data => {
+                        setSatellites(prev => {
+                            const combined = [...initialSats];
+                            data.forEach(d => {
+                                if (!combined.find(s => s.norad_id === d.norad_id)) {
+                                    combined.push(d);
+                                }
+                            });
+                            return combined;
+                        });
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.error("Fetch failed", err);
+                        if (initialSats.length > 0) setSatellites(initialSats);
+                        setLoading(false);
+                    });
             }, []);
 
-            // Save to localStorage whenever satellites list changes
+            // Save to localStorage (even if empty, to reflect clearHistory)
             useEffect(() => {
-                if (satellites.length > 0) {
-                    localStorage.setItem(HISTORY_KEY, JSON.stringify(satellites));
-                }
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(satellites));
             }, [satellites]);
 
             const clearHistory = () => {
@@ -1088,8 +1068,8 @@
 
             return (
                 <div className="calculator-layout">
-                    {/* Top Row: Search & List */}
-                    <div style={{ gridArea: 'list', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '0', overflowY: 'auto' }}>
+                    <div style={{ gridArea: 'list', display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: '0', overflowY: 'auto', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '12px' }}>
+                        {/* Search Bar */}
                         <div style={{ display: 'flex', gap: '0.5rem', position: 'relative' }}>
                             <input
                                 type="text"
@@ -1105,47 +1085,56 @@
                             <button className="cta-button" style={{ padding: '0 1rem', fontSize: '0.8rem' }} onClick={performSearch}>
                                 {t.calc_add}
                             </button>
+
+                            {/* Search Results Dropdown (Scoped here) */}
+                            {searchResults.length > 0 && (
+                                <div style={{
+                                    position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 1000,
+                                    background: '#0a0f18', border: '1px solid #333', borderRadius: '8px',
+                                    marginTop: '5px', maxHeight: '300px', overflowY: 'auto', boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                                }}>
+                                    {searchResults.map(res => (
+                                        <div key={res.norad_id}
+                                            onClick={() => addToDashboard(res.norad_id)}
+                                            style={{ padding: '0.8rem', borderBottom: '1px solid #222', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                            className="search-result-item"
+                                        >
+                                            <span style={{ color: 'white' }}>{res.name}</span>
+                                            <span style={{ color: '#666', fontSize: '0.8rem' }}>#{res.norad_id}</span>
+                                        </div>
+                                    ))}
+                                    <div style={{ padding: '0.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#888', cursor: 'pointer' }} onClick={() => setSearchResults([])}>
+                                        Cancel
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Clear History Button */}
+                        {/* Satellite Dashboard Grid */}
+                        <div className="dashboard-grid">
+                            {loading ? <div className="state-msg">{t.calc_init}</div> :
+                                satellites.length > 0 ? (
+                                    satellites.map(sat => (
+                                        <SatelliteCard key={sat.norad_id} sat={sat} onClick={setSelectedSat} t={t} selectedSat={selectedSat} />
+                                    ))
+                                ) : (
+                                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '2rem', color: '#666' }}>
+                                        {t.f_empty || "No satellites tracked. Search for a NORAD ID to add it."}
+                                    </div>
+                                )
+                            }
+                        </div>
+
+                        {/* Clear History Button at bottom of list */}
                         {satellites.length > 0 && (
                             <button onClick={clearHistory} style={{
                                 background: 'transparent', border: '1px solid #333', color: '#666',
                                 padding: '0.4rem 0.8rem', borderRadius: '6px', cursor: 'pointer',
-                                fontSize: '0.75rem', alignSelf: 'flex-end'
+                                fontSize: '0.75rem', alignSelf: 'flex-start'
                             }}>
                                 🗑 {t.btn_clear}
                             </button>
                         )}
-
-                        {/* Search Results Dropdown */}
-                        {searchResults.length > 0 && (
-                            <div style={{
-                                position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                                background: '#0a0f18', border: '1px solid #333', borderRadius: '8px',
-                                marginTop: '5px', maxHeight: '200px', overflowY: 'auto'
-                            }}>
-                                {searchResults.map(res => (
-                                    <div key={res.norad_id}
-                                        onClick={() => addToDashboard(res.norad_id)}
-                                        style={{ padding: '0.8rem', borderBottom: '1px solid #222', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center hover:bg-white/10' }}>
-                                        <span style={{ color: 'white' }}>{res.name}</span>
-                                        <span style={{ color: '#666', fontSize: '0.8rem' }}>#{res.norad_id}</span>
-                                    </div>
-                                ))}
-                                <div style={{ padding: '0.5rem', textAlign: 'center', fontSize: '0.8rem', color: '#888', cursor: 'pointer' }} onClick={() => setSearchResults([])}>
-                                    Cancel
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="dashboard-grid">
-                        {loading ? <div className="state-msg">{t.calc_init}</div> :
-                            satellites.map(sat => (
-                                <SatelliteCard key={sat.norad_id} sat={sat} onClick={setSelectedSat} t={t} />
-                            ))
-                        }
                     </div>
 
                     <DetailPanel sat={selectedSat} t={t} onShowMap={() => showOnMap(selectedSat)} />

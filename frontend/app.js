@@ -1,7 +1,9 @@
 const { useState, useEffect, useRef } = React;
 
 // --- API Service ---
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? "http://localhost:8000/api"
+    : "/api";
 
 // --- Components ---
 
@@ -192,7 +194,7 @@ function App() {
             <header className="app-header">
                 <div className="brand">
                     <h1>Bellatrix</h1>
-                    <p>AI-powered satellite risk monitoring and orbital analytics</p>
+                    <p>Advanced satellite risk monitoring and orbital analytics</p>
                 </div>
                 <div className="header-status">
                     <div className="status-item"><span>Status:</span> ONLINE</div>

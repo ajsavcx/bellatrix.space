@@ -1,6 +1,6 @@
 # 🛰️ Bellatrix Orbita
 
-**Bellatrix Orbita** is a professional-grade, AI-powered orbital risk intelligence platform. It bridges the gap between raw NORAD tracking data and actionable orbital safety analytics, providing real-time visualization and collision risk assessment for over 27,000 objects in Earth's orbit.
+**Bellatrix Orbita** is a professional-grade, advanced orbital risk intelligence platform. It bridges the gap between raw NORAD tracking data and actionable orbital safety analytics, providing real-time visualization and collision risk assessment for over 27,000 objects in Earth's orbit.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -9,11 +9,11 @@
 ---
 
 ## 🇷🇺 Описание на русском языке
-**Bellatrix Orbita** — это аналитическая платформа для мониторинга орбитальных рисков. Проект объединяет данные слежения NORAD с алгоритмами машинного обучения для прогнозирования вероятности столкновений и визуализации траекторий спутников в реальном времени.
+**Bellatrix Orbita** — это аналитическая платформа для мониторинга орбитальных рисков. Проект объединяет данные слежения NORAD с продвинутыми алгоритмами для прогнозирования вероятности столкновений и визуализации траекторий спутников в реальном времени.
 
 **Основные возможности:**
 - **SGP4 Прогнозирование:** Точный расчет положения спутников на основе орбитальных элементов.
-- **AI Аналитика Рисков:** Оценка вероятности столкновений на основе сближений и устойчивости орбиты.
+- **Аналитика Рисков:** Оценка вероятности столкновений на основе сближений и устойчивости орбиты.
 - **Интерактивная 3D Визуализация:** Отображение пути спутника на 3D глобусе и 2D карте.
 - **Экспорт Отчетов:** Загрузка телеметрии в CSV и PDF отчетов о рисках.
 - **Надежность:** Кэширование данных и защита от сбоев API.
@@ -28,11 +28,11 @@ The system uses the **Simplified General Perturbations (SGP4)** model to propaga
 - **Calculation:** The `celestial_engine.py` converts TLEs into TEME (True Equator Mean Equinox) coordinates, which are then transformed into Geodetic (Latitude, Longitude, Altitude) and ECEF (Earth-Centered, Earth-Fixed) frames for visualization.
 - **Propagation:** The platform can propagate an orbit 90-180 minutes into the future to generate the high-visibility "3D Trajectory" points.
 
-### 2. AI Risk Assessment
+### 2. Risk Intelligence
 Collision risk is NOT just distance-based. Our **Analytics Engine** uses a multi-factor heuristic:
 - **Proximity Analysis:** Calculates the "Close Approach" distance using future propagation steps.
 - **Velocity Differential:** High-speed intersections in Low Earth Orbit (LEO) increase the risk score exponentially.
-- **Stability Index:** An AI-generated metric (0-100%) that evaluates the consistency of the satellite's orbital parameters over time.
+- **Stability Index:** An advanced risk metric (0-100%) that evaluates the consistency of the satellite's orbital parameters over time.
 - **Trend Analysis:** Generates a 7-day risk trend using time-series forecasting to predict future instabilities.
 
 ### 3. Reliability & Resilience (The "Phase 20" Upgrades)
@@ -64,7 +64,7 @@ bellatrix-orbita/
 ├── backend/
 │   ├── main.py             # API Router, Rate Limiting, & PDF/CSV Export
 │   ├── celestial_engine.py # TLE Fetching, SGP4 Propagation, Caching
-│   ├── analytics_engine.py # AI Risk Heuristics & Global Stats
+│   ├── analytics_engine.py # Risk Analysis Heuristics & Global Stats
 │   ├── test_backend.py     # 20+ Unit Tests (High Coverage)
 │   └── requirements.txt    # dependencies (fastapi, sgp4, reportlab, etc.)
 ├── frontend/

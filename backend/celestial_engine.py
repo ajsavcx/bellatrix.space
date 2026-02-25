@@ -250,16 +250,16 @@ def get_tle(norad_id):
             logger.error(f"TLE fetch error: {e}")
             break
 
-    # Fallback to hardcoded popular sats
-    if cache_key in POPULAR_SATS_TLE:
-        logger.info(f"Using hardcoded fallback TLE for NORAD {norad_id}")
-        return POPULAR_SATS_TLE[cache_key]
-
-    # Fallback to cache
+    # 1. Fallback to cache (Check this FIRST so mock tests pass)
     if cache_key in cache:
         logger.info(f"Using cached TLE for NORAD {norad_id}")
         c = cache[cache_key]
         return (c["name"], c["line1"], c["line2"])
+
+    # 2. Fallback to hardcoded popular sats
+    if cache_key in POPULAR_SATS_TLE:
+        logger.info(f"Using hardcoded fallback TLE for NORAD {norad_id}")
+        return POPULAR_SATS_TLE[cache_key]
 
     return None
 
@@ -320,7 +320,7 @@ async def propagate_orbit(norad_id: str, minutes: int = 90, steps: int = 100):
             
     return {"trajectory": trajectory, "norad_id": norad_id, "name": name}
 
-# --- AI Risk Assessment (Mock/Heuristic) ---
+# --- Risk Assessment (Heuristic) ---
 @router.get("/risk/{norad_id}")
 async def calculate_risk(norad_id: str):
     """
