@@ -38,8 +38,8 @@
         // --- TRANSLATIONS ---
         const TRANSLATIONS = {
             en: {
-                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "Predictive Analytics",
-                home_sub: "Advanced orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
+                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "AI Forecast",
+                home_sub: "AI-powered orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
                 start_btn: "Start Analysis",
                 mission_title: "Orbital Integrity",
                 mission_txt: "Low Earth Orbit is becoming dangerously crowded. With over 27,000 tracked objects, the risk of Kessler Syndrome—a cascade of collisions—is real. Bellatrix provides the intelligence needed to navigate this new frontier safely.",
@@ -53,7 +53,7 @@
                 guide_2_t: "2. View Telemetry",
                 guide_2_d: "Analyze inclination, period, and real-time altitude in the detail panel.",
                 guide_3_t: "3. Analyze Risk",
-                guide_3_d: "Monitor collision probabilities and orbital stability forecasts.",
+                guide_3_d: "Monitor collision probabilities and AI stability forecasts.",
                 calc_init: "Initializing Uplink...",
                 calc_select: "Select a satellite to begin analysis",
                 detail_title: "Telemetry Analysis",
@@ -99,7 +99,7 @@
                 s_nav: "Navigation",
                 s_intel: "Intelligence",
                 s_legal: "Legal & Data",
-                s_platform: "Autonomous Orbital Intelligence Platform",
+                s_platform: "AI-Powered Orbital Intelligence Platform",
                 s_terms: "API Terms",
                 s_policy: "Data Policy",
                 s_calc: "Calculator (Tracking)",
@@ -145,8 +145,8 @@
                 btn_clear: "Clear History"
             },
             ru: {
-                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "Прогноз",
-                home_sub: "Платформа орбитальной разведки. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
+                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "AI Прогноз",
+                home_sub: "Платформа орбитальной разведки на базе ИИ. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
                 start_btn: "Начать Анализ",
                 mission_title: "Орбитальная Целостность",
                 mission_txt: "Низкая околоземная орбита опасно перегружена. При наличии более 27 000 отслеживаемых объектов риск Синдрома Кесслера — каскада столкновений — вполне реален. Bellatrix предоставляет разведданные для безопасной навигации в этом новом фронтире.",
@@ -160,7 +160,7 @@
                 guide_2_t: "2. Просмотр телеметрии",
                 guide_2_d: "Анализируйте наклонение, период и высоту в реальном времени на панели деталей.",
                 guide_3_t: "3. Анализ рисков",
-                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности.",
+                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности от ИИ.",
                 calc_init: "Инициализация связи...",
                 calc_select: "Выберите спутник для начала анализа",
                 detail_title: "Анализ телеметрии",
@@ -206,7 +206,7 @@
                 s_nav: "Навигация",
                 s_intel: "Аналитика",
                 s_legal: "Данные и право",
-                s_platform: "Автономная платформа орбитальной разведки",
+                s_platform: "AI-платформа орбитальной разведки",
                 s_terms: "Условия API",
                 s_policy: "Политика данных",
                 s_calc: "Калькулятор (Мониторинг)",
@@ -326,7 +326,7 @@
                 let width = window.innerWidth; let height = window.innerHeight;
                 canvas.width = width; canvas.height = height;
                 const stars = [];
-                for (let i = 0; i < 800; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.3, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
+                for (let i = 0; i < 400; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.3, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
                 function animate() {
                     ctx.clearRect(0, 0, width, height);
                     stars.forEach(star => {
