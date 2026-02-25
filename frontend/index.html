@@ -326,32 +326,21 @@
                 let width = window.innerWidth; let height = window.innerHeight;
                 canvas.width = width; canvas.height = height;
                 const stars = [];
-                // Further reduce stars to 150 for minimal load
-                for (let i = 0; i < 150; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 2, speed: Math.random() * 0.2, color: Math.random() > 0.8 ? '#bc13fe' : '#ffffff' });
+                // Static stars - No animation = 0% CPU for this component
+                for (let i = 0; i < 50; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 1.5, color: Math.random() > 0.8 ? '#bc13fe' : '#444' });
 
-                let lastTime = 0;
-                function animate(time) {
-                    if (document.visibilityState !== 'visible') {
-                        requestAnimationFrame(animate);
-                        return;
-                    }
-
-                    // Throttle to ~30 FPS to save energy
-                    if (time - lastTime < 33) {
-                        requestAnimationFrame(animate);
-                        return;
-                    }
-                    lastTime = time;
-
+                const draw = () => {
                     ctx.clearRect(0, 0, width, height);
                     stars.forEach(star => {
                         ctx.beginPath(); ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2); ctx.fillStyle = star.color; ctx.fill();
-                        star.y -= star.speed; if (star.y < 0) { star.y = height; star.x = Math.random() * width; }
                     });
-                    requestAnimationFrame(animate);
-                }
-                requestAnimationFrame(animate);
-                window.addEventListener('resize', () => { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; });
+                };
+                draw();
+
+                window.addEventListener('resize', () => {
+                    width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height;
+                    draw();
+                });
             }, []);
             return <canvas id="star-canvas" ref={canvasRef} />;
         }
@@ -629,20 +618,15 @@
                 scene.add(earthGroup);
                 earthRef.current = earthGroup;
 
-                const geometry = new THREE.SphereGeometry(4, 64, 64);
+                const geometry = new THREE.SphereGeometry(4, 32, 32);
                 const material = new THREE.MeshPhongMaterial({
                     color: 0x0f1e3d,
-                    emissive: 0x051020,
+                    emissive: 0x01050a,
                     specular: 0x111111,
-                    shininess: 25
+                    shininess: 5
                 });
                 const earth = new THREE.Mesh(geometry, material);
                 earthGroup.add(earth);
-
-                const wireGeo = new THREE.WireframeGeometry(geometry);
-                const wireMat = new THREE.LineBasicMaterial({ color: 0x3a5a8c, transparent: true, opacity: 0.1 });
-                const wireglobe = new THREE.LineSegments(wireGeo, wireMat);
-                earthGroup.add(wireglobe);
 
                 const satGroup = new THREE.Group();
                 const bodyGeo = new THREE.BoxGeometry(0.4, 0.4, 0.4);
