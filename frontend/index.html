@@ -605,7 +605,7 @@
             // OPTIMIZATION: Reduce heavy re-renders from 50ms (20 FPS) to 120ms (~8 FPS)
             // This saves ~60% of CPU cycles while keeping orbital motion smooth enough
             useEffect(() => {
-                const interval = setInterval(() => setTick(t => t + 1), 120);
+                const interval = setInterval(() => setTick(t => t + 1), 100);
                 return () => clearInterval(interval);
             }, []);
 
@@ -643,6 +643,13 @@
 
                     {/* MAIN SVG ORBITAL ENGINE */}
                     <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%' }}>
+                        <style>{`
+                            @keyframes twinkle {
+                                0%, 100% { opacity: 0.3; }
+                                50% { opacity: 1; }
+                            }
+                            .star { animation: twinkle 3s infinite ease-in-out; }
+                        `}</style>
                         <defs>
                             <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
                                 <stop offset="0%" stopColor="#001825" />
@@ -656,9 +663,12 @@
                             </filter>
                         </defs>
 
-                        {/* STAR BACKGROUND (CACHED) */}
+                        {/* STAR BACKGROUND (CACHED + TWINKLE) */}
                         {stars.map((s, i) => (
-                            <circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="#444" opacity={s.opacity} />
+                            <circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="#555"
+                                className="star"
+                                style={{ animationDelay: `${(i % 5) * 0.4}s` }}
+                                opacity={s.opacity} />
                         ))}
 
                         <g transform="translate(200, 150)">
@@ -716,6 +726,14 @@
                                     <circle r="2" fill="#fff" />
                                 </g>
                             )}
+
+                            {/* RADAR SCANNING LINE (HIGH-TEC EFFECT) */}
+                            <g transform="rotate(0)">
+                                <line x1="0" y1="0" x2="200" y2="0" stroke="#00f3ff" strokeWidth="0.5" opacity="0.2">
+                                    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite" />
+                                </line>
+                                <circle r="150" fill="none" stroke="#00f3ff08" strokeWidth="0.2" />
+                            </g>
                         </g>
                     </svg>
 
