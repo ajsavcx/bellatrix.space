@@ -294,23 +294,30 @@
 
         function BellatrixLogo() {
             return (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="40" stroke="url(#grad1)" strokeWidth="4" />
-                        <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(25 50 50)" stroke="url(#grad2)" strokeWidth="2" strokeOpacity="0.8" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 8px var(--primary-glow))' }}>
+                        <circle cx="50" cy="50" r="40" stroke="url(#grad1_logo)" strokeWidth="4" />
+                        <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(25 50 50)" stroke="url(#grad2_logo)" strokeWidth="2" strokeOpacity="0.8" />
                         <path d="M50 20L58 42L82 42L62 58L70 80L50 65L30 80L38 58L18 42L42 42L50 20Z" fill="white" />
                         <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop stopColor="#bc13fe" />
-                                <stop offset="1" stopColor="#05070a" />
+                            <linearGradient id="grad1_logo" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#00f3ff" />
+                                <stop offset="100%" stopColor="#bc13fe" />
                             </linearGradient>
-                            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop stopColor="#4facfe" />
-                                <stop offset="1" stopColor="#00f2fe" />
+                            <linearGradient id="grad2_logo" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                                <stop offset="100%" stopColor="#00f3ff" stopOpacity="0.3" />
                             </linearGradient>
                         </defs>
                     </svg>
-                    <span style={{ fontFamily: 'Cinzel', fontSize: '1.5rem', fontWeight: '700', letterSpacing: '2px', background: 'linear-gradient(to right, #fff, #aaa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    <span style={{
+                        fontFamily: 'Cinzel',
+                        fontSize: '1.8rem',
+                        letterSpacing: '3px',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0 0 15px rgba(0, 243, 255, 0.8), 0 0 30px rgba(0, 243, 255, 0.4)'
+                    }}>
                         BELLATRIX
                     </span>
                 </div>
