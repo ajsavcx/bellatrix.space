@@ -783,14 +783,32 @@
                                     <div style={{ marginTop: '2rem', background: 'rgba(0,0,0,0.3)', padding: '1.5rem', borderRadius: '12px', border: '1px solid #333' }}>
                                         <h4 style={{ margin: '0 0 1rem 0', color: '#bc13fe' }}>{t.f_neural_summary}</h4>
                                         <p style={{ margin: 0, color: '#aaa', fontSize: '0.9rem', lineHeight: 1.6 }}>{analytics.forecast_summary}</p>
-                                        <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem' }}>
+
+                                        {/* Detailed Analytics Grid */}
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', marginTop: '1.5rem', borderTop: '1px solid #222', paddingTop: '1.5rem' }}>
                                             <div>
-                                                <div style={{ fontSize: '0.7rem', color: '#666', textTransform: 'uppercase' }}>{t.f_stability}</div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>{t.f_stability}</div>
                                                 <div style={{ fontSize: '1.2rem', color: '#00ff88', fontWeight: 'bold' }}>{analytics.stability_index}%</div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.7rem', color: '#666', textTransform: 'uppercase' }}>{t.f_avg_alt}</div>
-                                                <div style={{ fontSize: '1.2rem', color: '#fff' }}>{analytics.avg_altitude} km</div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>CONJUNCTION_RISK</div>
+                                                <div style={{ fontSize: '1rem', color: analytics.conjunction_risk === 'Minimal' ? '#00ff88' : '#ffaa00' }}>{analytics.conjunction_risk}</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>NEXT_PASS</div>
+                                                <div style={{ fontSize: '1rem', color: '#fff' }}>{analytics.next_pass_window}</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>ORBIT_DECAY</div>
+                                                <div style={{ fontSize: '1rem', color: '#fff' }}>{analytics.orbital_decay} mm/y</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>SOLAR_IMPACT</div>
+                                                <div style={{ fontSize: '1rem', color: '#aaa', fontSize: '0.8rem' }}>{analytics.solar_activity_impact}</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: '0.6rem', color: '#666', textTransform: 'uppercase' }}>MANEUVER_REC</div>
+                                                <div style={{ fontSize: '0.9rem', color: '#bc13fe' }}>{analytics.maneuver_suggestion}</div>
                                             </div>
                                         </div>
                                     </div>

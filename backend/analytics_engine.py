@@ -14,6 +14,12 @@ class SatelliteAnalytics(BaseModel):
     forecast_summary: str
     avg_altitude: float
     stability_index: float
+    # New Detailed Fields
+    conjunction_risk: str
+    next_pass_window: str
+    orbital_decay: float # mm/year
+    solar_activity_impact: str
+    maneuver_suggestion: str
 
 def generate_risk_trend(norad_id: str, days: int = 7) -> SatelliteAnalytics:
     """
@@ -43,12 +49,22 @@ def generate_risk_trend(norad_id: str, days: int = 7) -> SatelliteAnalytics:
     # Calculate dummy stability index
     stability = 100 - (np.std([p.risk_score for p in trend]) * 5)
     
+    # Detailed Metadata
+    conjunctions = ["Minimal", "Elevated", "Nominal", "Potential Warning"]
+    solar_impacts = ["Low - Ionospheric Stability", "Moderate - Atmospheric Drag", "High - Geomagnetic Storm"]
+    maneuvers = ["Hold Station", "Prograde Boost Recommended", "Inclination Adjustment", "None Required"]
+
     return SatelliteAnalytics(
         norad_id=norad_id,
         trend_data=trend,
         forecast_summary="The orbital path remains stable with a slight upward trend in local debris density.",
         avg_altitude=round(np.random.uniform(400, 800), 1), # Placeholder
-        stability_index=round(max(0, stability), 2)
+        stability_index=round(max(0, stability), 2),
+        conjunction_risk=conjunctions[seed % len(conjunctions)],
+        next_pass_window=f"T+{np.random.randint(5, 120)}m",
+        orbital_decay=round(np.random.uniform(0.1, 2.5), 2),
+        solar_activity_impact=solar_impacts[seed % len(solar_impacts)],
+        maneuver_suggestion=maneuvers[seed % len(maneuvers)]
     )
 
 def get_global_stats() -> Dict:
