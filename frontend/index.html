@@ -38,8 +38,8 @@
         // --- TRANSLATIONS ---
         const TRANSLATIONS = {
             en: {
-                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "AI Forecast",
-                home_sub: "AI-powered orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
+                nav_home: "Home", nav_calc: "Calculator", nav_guide: "Guide", nav_map: "Live Map", nav_forecast: "Predictive Forecast",
+                home_sub: "Advanced orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
                 start_btn: "Start Analysis",
                 mission_title: "Orbital Integrity",
                 mission_txt: "Low Earth Orbit is becoming dangerously crowded. With over 27,000 tracked objects, the risk of Kessler Syndrome—a cascade of collisions—is real. Bellatrix provides the intelligence needed to navigate this new frontier safely.",
@@ -53,7 +53,7 @@
                 guide_2_t: "2. View Telemetry",
                 guide_2_d: "Analyze inclination, period, and real-time altitude in the detail panel.",
                 guide_3_t: "3. Analyze Risk",
-                guide_3_d: "Monitor collision probabilities and AI stability forecasts.",
+                guide_3_d: "Monitor collision probabilities and orbital stability forecasts.",
                 calc_init: "Initializing Uplink...",
                 calc_select: "Select a satellite to begin analysis",
                 detail_title: "Telemetry Analysis",
@@ -99,7 +99,7 @@
                 s_nav: "Navigation",
                 s_intel: "Intelligence",
                 s_legal: "Legal & Data",
-                s_platform: "AI-Powered Orbital Intelligence Platform",
+                s_platform: "Advanced Orbital Intelligence Platform",
                 s_terms: "API Terms",
                 s_policy: "Data Policy",
                 s_calc: "Calculator (Tracking)",
@@ -145,8 +145,8 @@
                 btn_clear: "Clear History"
             },
             ru: {
-                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "AI Прогноз",
-                home_sub: "Платформа орбитальной разведки на базе ИИ. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
+                nav_home: "Главная", nav_calc: "Калькулятор", nav_guide: "Справка", nav_map: "Карта", nav_forecast: "Прогноз",
+                home_sub: "Платформа орбитальной разведки. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
                 start_btn: "Начать Анализ",
                 mission_title: "Орбитальная Целостность",
                 mission_txt: "Низкая околоземная орбита опасно перегружена. При наличии более 27 000 отслеживаемых объектов риск Синдрома Кесслера — каскада столкновений — вполне реален. Bellatrix предоставляет разведданные для безопасной навигации в этом новом фронтире.",
@@ -160,7 +160,7 @@
                 guide_2_t: "2. Просмотр телеметрии",
                 guide_2_d: "Анализируйте наклонение, период и высоту в реальном времени на панели деталей.",
                 guide_3_t: "3. Анализ рисков",
-                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности от ИИ.",
+                guide_3_d: "Следите за вероятностью столкновения и прогнозами стабильности.",
                 calc_init: "Инициализация связи...",
                 calc_select: "Выберите спутник для начала анализа",
                 detail_title: "Анализ телеметрии",
@@ -206,7 +206,7 @@
                 s_nav: "Навигация",
                 s_intel: "Аналитика",
                 s_legal: "Данные и право",
-                s_platform: "AI-платформа орбитальной разведки",
+                s_platform: "Платформа орбитальной разведки",
                 s_terms: "Условия API",
                 s_policy: "Политика данных",
                 s_calc: "Калькулятор (Мониторинг)",
@@ -594,41 +594,92 @@
         }
 
         function OrbitViz({ selectedSat }) {
-            const mountRef = useRef(null);
-            const sceneRef = useRef(null);
-            const earthRef = useRef(null);
-            const satMeshRef = useRef(null);
-            const curveRef = useRef(null);
-            const progressRef = useRef(0);
+            const [scanLine, setScanLine] = useState(0);
 
             useEffect(() => {
-                // THERMAL PROTECTION: 3D ENGINE DISABLED
-                return;
+                const interval = setInterval(() => {
+                    setScanLine(prev => (prev + 1) % 100);
+                }, 50);
+                return () => clearInterval(interval);
             }, []);
-        return (
-            <div className="viz-wrapper">
-                <div className="viz-container" style={{
-                    display: 'flex', flexDirection: 'column',
-                    justifyContent: 'center', alignItems: 'center',
-                    color: '#666', textAlign: 'center',
-                    padding: '2rem', height: '100%',
-                    background: 'rgba(0,0,0,0.8)',
-                    borderRadius: '12px',
-                    border: '1px solid #ff444433'
-                }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>❄️</div>
-                    <h3 style={{ color: '#ff4444', fontFamily: 'Cinzel' }}>THERMAL PROTECTION ACTIVE</h3>
-                    <p style={{ maxWidth: '300px', fontSize: '0.9rem' }}>3D Graphics and WebGL suspended to cool your device. Please close the tab if the heat persists.</p>
-                    {selectedSat && (
-                        <div style={{ marginTop: '1.5rem', background: 'rgba(255,68,68,0.05)', padding: '1rem', borderRadius: '8px', border: '1px solid #ff444433' }}>
-                            <div style={{ color: '#fff', fontWeight: 'bold' }}>{selectedSat.name}</div>
-                            <div style={{ fontSize: '0.8rem', color: '#888' }}>Telemetry monitoring active (Legacy UI).</div>
+
+            return (
+                <div className="viz-wrapper">
+                    <div className="viz-container tactical-hud" style={{
+                        display: 'flex', flexDirection: 'column',
+                        justifyContent: 'center', alignItems: 'center',
+                        color: 'var(--primary-glow)', textAlign: 'center',
+                        padding: '2rem', height: '100%',
+                        background: '#05070a',
+                        borderRadius: '12px',
+                        border: '1px solid var(--primary-glow)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        fontFamily: 'monospace'
+                    }}>
+                        {/* Scanning Line Effect */}
+                        <div style={{
+                            position: 'absolute', top: `${scanLine}%`, left: 0, width: '100%', height: '2px',
+                            background: 'rgba(0, 243, 255, 0.2)', boxShadow: '0 0 10px var(--primary-glow)',
+                            zIndex: 5
+                        }}></div>
+
+                        {/* Grid Overlay */}
+                        <div style={{
+                            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                            backgroundImage: 'linear-gradient(rgba(0,243,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,243,255,0.05) 1px, transparent 1px)',
+                            backgroundSize: '20px 20px', pointerEvents: 'none'
+                        }}></div>
+
+                        <div className="hud-overlay" style={{ zIndex: 10 }}>
+                            <div style={{ fontSize: '0.8rem', letterSpacing: '4px', marginBottom: '1rem', color: '#888' }}>
+                                // SATELLITE_DOWNLINK_ACTIVE //
+                            </div>
+
+                            {selectedSat ? (
+                                <div style={{ animation: 'fadeIn 0.5s ease-out' }}>
+                                    <h2 style={{ fontFamily: 'Cinzel', fontSize: '2rem', margin: '0 0 1rem 0', color: '#fff' }}>{selectedSat.name}</h2>
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', textAlign: 'left' }}>
+                                        <div>
+                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SECTOR_LAT</div>
+                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.latitude || '34.05'}&deg; N</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SECTOR_LON</div>
+                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.longitude || '118.24'}&deg; W</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>ALTI_KM</div>
+                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.altitude_km} KM</div>
+                                        </div>
+                                        <div>
+                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SIGNAL_STRENGTH</div>
+                                            <div style={{ fontSize: '1.2rem', color: '#00ff88' }}>OPTIMAL</div>
+                                        </div>
+                                    </div>
+                                    <div style={{ marginTop: '2rem', borderTop: '1px solid #333', paddingTop: '1rem', fontSize: '0.8rem', color: '#666' }}>
+                                        CROSS-REFERENCE: NORAD_ID_{selectedSat.norad_id} | STATUS: TRACKING
+                                    </div>
+                                </div>
+                            ) : (
+                                <div style={{ opacity: 0.5 }}>
+                                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📡</div>
+                                    <h3 style={{ fontFamily: 'Cinzel' }}>AWAITING_UPLINK</h3>
+                                    <p>Select an object from the list to initiate tracking</p>
+                                </div>
+                            )}
                         </div>
-                    )}
+
+                        {/* Corner Accents */}
+                        <div style={{ position: 'absolute', top: 10, left: 10, width: 20, height: 20, borderTop: '2px solid var(--primary-glow)', borderLeft: '2px solid var(--primary-glow)' }}></div>
+                        <div style={{ position: 'absolute', top: 10, right: 10, width: 20, height: 20, borderTop: '2px solid var(--primary-glow)', borderRight: '2px solid var(--primary-glow)' }}></div>
+                        <div style={{ position: 'absolute', bottom: 10, left: 10, width: 20, height: 20, borderBottom: '2px solid var(--primary-glow)', borderLeft: '2px solid var(--primary-glow)' }}></div>
+                        <div style={{ position: 'absolute', bottom: 10, right: 10, width: 20, height: 20, borderBottom: '2px solid var(--primary-glow)', borderRight: '2px solid var(--primary-glow)' }}></div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
         }
+
 
         function ForecastView({ t, selectedSat }) {
             const [analytics, setAnalytics] = useState(null);
