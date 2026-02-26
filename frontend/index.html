@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI | Orbital Intelligence Platform</title>
+    <title>Bellatrix | Orbital Intelligence Platform</title>
 
     <!-- Meta Tags -->
     <meta name="description" content="Advanced satellite risk monitoring and orbital analytics.">
@@ -41,7 +41,7 @@
                 home_sub: "Advanced orbital risk intelligence platform. Visualize complex satellite trajectories, analyze collision probabilities, and master the orbital mechanics of tomorrow.",
                 start_btn: "Start Analysis",
                 mission_title: "Orbital Integrity",
-                mission_txt: "Low Earth Orbit is becoming dangerously crowded. With over 27,000 tracked objects, the risk of Kessler Syndrome—a cascade of collisions—is real. AI provides the intelligence needed to navigate this new frontier safely.",
+                mission_txt: "Low Earth Orbit is becoming dangerously crowded. With over 27,000 tracked objects, the risk of Kessler Syndrome—a cascade of collisions—is real. Bellatrix provides the intelligence needed to navigate this new frontier safely.",
                 calc_add: "Add Satellite",
                 calc_placeholder: "NORAD ID or Name",
                 footer_data: "Data: NASA, ESA, SpaceX, CelesTrak, & NORAD APIs.",
@@ -148,7 +148,7 @@
                 home_sub: "Платформа орбитальной разведки. Визуализируйте траектории спутников, анализируйте вероятности столкновений и изучайте орбитальную механику будущего.",
                 start_btn: "Начать Анализ",
                 mission_title: "Орбитальная Целостность",
-                mission_txt: "Низкая околоземная орбита опасно перегружена. При наличии более 27 000 отслеживаемых объектов риск Синдрома Кесслера — каскада столкновений — вполне реален. AI предоставляет разведданные для безопасной навигации в этом новом фронтире.",
+                mission_txt: "Низкая околоземная орбита опасно перегружена. При наличии более 27 000 отслеживаемых объектов риск Синдрома Кесслера — каскада столкновений — вполне реален. Bellatrix предоставляет разведданные для безопасной навигации в этом новом фронтире.",
                 calc_add: "Добавить",
                 calc_placeholder: "NORAD ID или Имя",
                 footer_data: "Данные: NASA, ESA, SpaceX, CelesTrak и API NORAD.",
@@ -224,7 +224,7 @@
                 err_search_fail: "Сбой поиска.",
                 err_details_fail: "Ошибка получения данных спутника.",
 
-                g_how: "Как пользоваться AI",
+                g_how: "Как пользоваться Bellatrix",
                 g_step1_t: "1. Поиск и выбор",
                 g_step1_d: "Перейдите во вкладку Калькулятор. Используйте поиск по NORAD ID (например, '25544' для МКС) или названию. Нажмите 'Добавить' для отслеживания.",
                 g_step2_t: "2. Анализ рисков",
@@ -238,7 +238,7 @@
                 g_ks_d: "Цепная реакция столкновений, разрушающая орбитальную среду.",
 
                 g_copyright_title: "Авторские права",
-                g_copyright_text: "© 2026 Проект AI Orbita. Все права защищены. Данные предоставлены NORAD, NASA, SpaceX и CelesTrak. Платформа предназначена для образовательных и исследовательских целей. Все орбитальные визуализации создаются в реальном времени на основе открытых данных TLE.",
+                g_copyright_text: "© 2026 Проект Bellatrix Orbita. Все права защищены. Данные предоставлены NORAD, NASA, SpaceX и CelesTrak. Платформа предназначена для образовательных и исследовательских целей. Все орбитальные визуализации создаются в реальном времени на основе открытых данных TLE.",
 
                 det_warn: "ПРЕДУПРЕЖДЕНИЕ О СБЛИЖЕНИИ",
                 det_prob: "Вер-ть",
@@ -349,7 +349,7 @@
             return (
                 <nav className="nav-bar">
                     <div onClick={() => setView('home')}>
-                        <AILogo />
+                        <BellatrixLogo />
                     </div>
                     <div className="nav-right">
                         <div className="nav-links">
@@ -372,7 +372,7 @@
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="section-container hero-section">
-                        <div style={{ transform: 'scale(1.5)', marginBottom: '1rem' }}><AILogo /></div>
+                        <div style={{ transform: 'scale(1.5)', marginBottom: '1rem' }}><BellatrixLogo /></div>
                         <p className="hero-subtitle">{t.home_sub}</p>
                         <button className="cta-button" onClick={() => setView('calc')}>{t.start_btn}</button>
 
@@ -380,7 +380,7 @@
                             <h3 style={{ fontFamily: 'Cinzel', color: 'var(--primary-glow)' }}>{t.mission_title}</h3>
                             <p style={{ color: '#ccc', lineHeight: '1.6' }}>{t.mission_txt}</p>
                             <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }} />
-                            <small style={{ color: '#666' }}>Project AI &copy; 2026. {t.footer_data}</small>
+                            <small style={{ color: '#666' }}>Project Bellatrix &copy; 2026. {t.footer_data}</small>
                         </div>
                     </div>
 
@@ -623,11 +623,11 @@
             return (
                 <div className="viz-wrapper" style={{ height: '500px', backgroundColor: '#020408', borderRadius: '16px', overflow: 'hidden', position: 'relative', border: '1px solid #1a1a1a', boxShadow: '0 0 40px rgba(0,0,0,0.8)' }}>
 
-                    {/* AI STATUS BAR */}
+                    {/* BELLATRIX STATUS BAR */}
                     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10, background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <div style={{ height: '8px', width: '8px', borderRadius: '50%', backgroundColor: '#00ff88', boxShadow: '0 0 10px #00ff88', animation: 'pulsate 2s infinite' }}></div>
-                            <span style={{ fontSize: '0.7rem', color: '#fff', letterSpacing: '2px', fontWeight: 'bold' }}>AI // MISSION_CONTROL_DIRECT_LINK</span>
+                            <span style={{ fontSize: '0.7rem', color: '#fff', letterSpacing: '2px', fontWeight: 'bold' }}>BELLATRIX // MISSION_CONTROL_DIRECT_LINK</span>
                         </div>
                         <div style={{ fontSize: '0.6rem', color: '#666', fontFamily: 'monospace' }}>
                             LATENCY: 14MS | BUFFER: OPTIMAL | CORE_V: 1.02V
@@ -996,7 +996,7 @@
             )
         }
 
-        const HISTORY_KEY = "ai_sat_history";
+        const HISTORY_KEY = "bellatrix_sat_history";
 
         function CalculatorView({ t, selectedSat, setSelectedSat, showOnMap }) {
             const [satellites, setSatellites] = useState([]);
@@ -1213,7 +1213,7 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 style={{ color: '#00f3ff', marginBottom: '1rem', fontFamily: 'Cinzel' }}>AI V4.0</h4>
+                            <h4 style={{ color: '#00f3ff', marginBottom: '1rem', fontFamily: 'Cinzel' }}>BELLATRIX V4.0</h4>
                             <p>{t.s_platform}</p>
                         </div>
                     </div>
