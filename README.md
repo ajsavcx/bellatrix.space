@@ -8,95 +8,121 @@
 
 ---
 
-## 🇷🇺 Описание на русском языке
-**Bellatrix Orbita** — это аналитическая платформа для мониторинга орбитальных рисков. Проект объединяет данные слежения NORAD с продвинутыми алгоритмами для прогнозирования вероятности столкновений и визуализации траекторий спутников в реальном времени.
+## 📖 Project Overview
+Bellatrix Orbita is designed as a Minimum Viable Product (MVP) to demonstrate the integration of orbital mechanics with predictive analytics. It provides a strategic dashboard for monitoring the space environment, specifically focusing on Low Earth Orbit (LEO) safety.
 
-**Основные возможности:**
-- **SGP4 Прогнозирование:** Точный расчет положения спутников на основе орбитальных элементов.
-- **Аналитика Рисков:** Оценка вероятности столкновений на основе сближений и устойчивости орбиты.
-- **Интерактивная 3D Визуализация:** Отображение пути спутника на 3D глобусе и 2D карте.
-- **Экспорт Отчетов:** Загрузка телеметрии в CSV и PDF отчетов о рисках.
-- **Надежность:** Кэширование данных и защита от сбоев API.
+**Key Capabilities:**
+- **Real-time Tracking**: Live telemetry processing of satellite positions.
+- **Predictive Analytics**: Heuristic collision risk modeling and stability forecasting.
+- **Visual Intelligence**: Interactive 2D ground track mapping and sector analysis.
+- **Reporting**: Automated generation of technical risk assessments in PDF and CSV.
+
+## 🇷🇺 Описание проекта
+**Bellatrix Orbita** — это аналитическая платформа для мониторинга орбитальных рисков. Проект объединяет данные слежения NORAD с продвинутыми алгоритмами (SGP4) для прогнозирования вероятности столкновений и визуализации траекторий спутников в реальном времени.
+
+**Основные преимущества:**
+- **Прогнозирование SGP4**: Высокая точность расчета положения объектов.
+- **Аналитика рисков**: Оценка стабильности орбит и вероятности сближения.
+- **Интерактивность**: Визуализация путей спутников на карте мира.
+- **Отчетность**: Генерация PDF-отчетов о состоянии безопасности объектов.
+
+
+## 🏗️ System Architecture
+
+Bellatrix Orbita follows a decoupled **Client-Server Architecture** optimized for high-performance physics calculations and low-latency visualization.
+
+```mermaid
+graph TD
+    subgraph "Frontend (HUD)"
+        A[React SPA] --> B[2D Ground Track Visualizer]
+        A --> C[Telemetry Dashboard]
+        A --> D[3D Visualization Panel]
+    end
+
+    subgraph "Backend (The Brain)"
+        E[FastAPI REST Server] --> F[Celestial Engine]
+        E --> G[Analytics Engine]
+        F --> H[SGP4 Propagator]
+        F --> I[TLE Cache System]
+        G --> J[Risk Heuristic Model]
+    end
+
+    subgraph "External Data"
+        K[CelesTrak / NORAD API] -- "TLE Sets" --> F
+    end
+
+    A -- "REST API" --> E
+```
 
 ---
 
-## 🧠 How It Works (Core Logic)
+## 🧠 Core Algorithms & Intelligence Models
 
-### 1. Orbital Mechanics (SGP4 Engine)
-The system uses the **Simplified General Perturbations (SGP4)** model to propagate satellite positions. 
-- **Data Input:** Raw Two-Line Element (TLE) sets from CelesTrak/NORAD.
-- **Calculation:** The `celestial_engine.py` converts TLEs into TEME (True Equator Mean Equinox) coordinates, which are then transformed into Geodetic (Latitude, Longitude, Altitude) and ECEF (Earth-Centered, Earth-Fixed) frames for visualization.
-- **Propagation:** The platform can propagate an orbit 90-180 minutes into the future to generate the high-visibility "3D Trajectory" points.
+### 1. SGP4 Propagation Model
+The system uses the **Simplified General Perturbations #4 (SGP4)** algorithm to predict satellite positions. 
+- **Input**: Two-Line Element (TLE) sets containing mean motion, inclination, eccentricity, etc.
+- **Process**: Converts TLE data into TEME (True Equator Mean Equinox) coordinates.
+- **Output**: State vectors (Position and Velocity) at any timestamp within a 90-180 minute window.
 
-### 2. Risk Intelligence
-Collision risk is NOT just distance-based. Our **Analytics Engine** uses a multi-factor heuristic:
-- **Proximity Analysis:** Calculates the "Close Approach" distance using future propagation steps.
-- **Velocity Differential:** High-speed intersections in Low Earth Orbit (LEO) increase the risk score exponentially.
-- **Stability Index:** An advanced risk metric (0-100%) that evaluates the consistency of the satellite's orbital parameters over time.
-- **Trend Analysis:** Generates a 7-day risk trend using time-series forecasting to predict future instabilities.
+### 2. Risk Heuristic Analytics
+Collision risk is evaluated using a weighted multi-factor scoring system:
+- **Orbital Density**: Higher scores for objects in LEO (Low Earth Orbit) shells (400-900km).
+- **Intersection Risk**: Polar orbits (inclination 80-100°) receive a priority boost due to high cross-orbital intersection probability.
+- **Stability Index**: Analyzes the standard deviation of variance in predicted paths; higher variance results in a lower stability score.
 
-### 3. Reliability & Resilience (The "Phase 20" Upgrades)
-- **TLE Disk Cache:** If the external CelesTrak API goes down, Bellatrix reverts to `tle_cache.json` (a disk-based fallback), ensuring 99.9% uptime.
-- **Retry Logic:** Implements exponential backoff (3 attempts: 1s → 2s → 4s) for all external network requests.
-- **Rate Limiting:** Protects the server from DDoS or heavy scraping using `slowapi` (default 60 requests/minute per IP).
+### 3. Coordinate Transformation
+Converts inertial TEME coordinates to Geodetic (Latitude/Longitude) by applying **Greenwich Sidereal Time (GST)** rotation corrections, enabling accurate 2D ground track mapping.
 
 ---
 
 ## 🛠️ Technology Stack
 
 ### Backend (The Brain)
-- **FastAPI:** High-speed asynchronous Python framework.
-- **SGP4 & Skyfield:** Industrial-standard libraries for orbital physics.
-- **ReportLab:** Dynamically generates PDF risk reports.
-- **SlowAPI:** Security and rate control.
+- **FastAPI**: High-speed asynchronous Python framework.
+- **SGP4 & Skyfield**: Industrial-standard libraries for orbital physics.
+- **ReportLab**: Dynamically generates PDF risk reports.
+- **SlowAPI**: Security and rate control.
 
 ### Frontend (The HUD)
-- **React (CDN):** Component-based architecture for the glassmorphism UI.
-- **Three.js:** Renders the 3D Earth, Atmosphere glow, and Satellite models.
-- **CSS3:** Advanced dark-mode aesthetics with neon glowing accents.
-
----
-
-## 📂 Architecture
-
-```bash
-bellatrix-orbita/
-├── backend/
-│   ├── main.py             # API Router, Rate Limiting, & PDF/CSV Export
-│   ├── celestial_engine.py # TLE Fetching, SGP4 Propagation, Caching
-│   ├── analytics_engine.py # Risk Analysis Heuristics & Global Stats
-│   ├── test_backend.py     # 20+ Unit Tests (High Coverage)
-│   └── requirements.txt    # dependencies (fastapi, sgp4, reportlab, etc.)
-├── frontend/
-│   ├── index.html          # SPA Entry Point & Translation Engine
-│   └── style.css           # Mobile-responsive styles (3 Breakpoints)
-└── start_bellatrix.sh      # One-click startup script (macOS/Linux)
-```
+- **React (v18)**: Component-based architecture for the glassmorphism UI.
+- **Three.js**: Renders the 3D Earth and Satellite models (currently suspended for thermal protection).
+- **CSS3**: Advanced dark-mode aesthetics with neon glowing accents.
 
 ---
 
 ## 🚀 Installation & Setup
 
-1. **Clone & Enter:**
-   ```bash
-   git clone https://github.com/aishaspx/bellatrix-orbita.git
-   cd bellatrix-orbita
-   ```
+### Standard Startup (One-Click)
+The easiest way to launch the project on macOS or Linux:
+```bash
+chmod +x start_bellatrix.sh
+./start_bellatrix.sh
+```
+This script will:
+1. **Clean up**: Detect and terminate any existing processes on ports 8000 and 8084.
+2. **Launch Backend**: Starts the FastAPI server on `http://localhost:8000`.
+3. **Launch Frontend**: Starts a Python HTTP server on `http://localhost:8084` serving the UI.
+4. **Auto-Open**: Automatically opens your default browser to the dashboard.
 
-2. **Install Dependencies:**
-   ```bash
-   pip install -r backend/requirements.txt
-   ```
+### Manual Startup
+If you prefer manual control:
+```bash
+# 1. Install dependencies
+pip install -r backend/requirements.txt
 
-3. **Run Locally:**
-   ```bash
-   ./start_bellatrix.sh
-   ```
+# 2. Start the Backend (Port 8000)
+cd backend
+python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
 
-4. **Run Tests (Verification):**
-   ```bash
-   cd backend && python3 -m pytest test_backend.py -v
-   ```
+# 3. Start the Frontend (In a new terminal)
+python3 -m http.server 8084 --directory frontend
+```
+
+### Verification (Tests)
+To verify the engine is performing calculations correctly, run:
+```bash
+cd backend && python3 -m pytest test_backend.py -v
+```
 
 ---
 
@@ -115,3 +141,4 @@ Licensed under the [MIT License](LICENSE).
 
 ---
 **⭐ If you find Bellatrix useful, please consider giving it a star on GitHub!**
+
