@@ -594,91 +594,145 @@
         }
 
         function OrbitViz({ selectedSat }) {
-            const [scanLine, setScanLine] = useState(0);
+            const [tick, setTick] = useState(0);
 
             useEffect(() => {
-                const interval = setInterval(() => {
-                    setScanLine(prev => (prev + 1) % 100);
-                }, 50);
+                const interval = setInterval(() => setTick(t => t + 1), 50);
                 return () => clearInterval(interval);
             }, []);
 
+            // Satellite paths simulation for "Moving Dots"
+            const sats = [
+                { id: 1, rx: 80, ry: 30, speed: 0.012, offset: 0, color: '#00f3ff' },
+                { id: 2, rx: 65, ry: 45, speed: 0.008, offset: 2.1, color: '#bc13fe' },
+                { id: 3, rx: 90, ry: 20, speed: 0.015, offset: 4.5, color: '#ffaa00' },
+                { id: 4, rx: 75, ry: 60, speed: 0.005, offset: 1.2, color: '#00ff88' }
+            ];
+
             return (
-                <div className="viz-wrapper">
-                    <div className="viz-container tactical-hud" style={{
-                        display: 'flex', flexDirection: 'column',
-                        justifyContent: 'center', alignItems: 'center',
-                        color: 'var(--primary-glow)', textAlign: 'center',
-                        padding: '2rem', height: '100%',
-                        background: '#05070a',
-                        borderRadius: '12px',
-                        border: '1px solid var(--primary-glow)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        fontFamily: 'monospace'
-                    }}>
-                        {/* Scanning Line Effect */}
-                        <div style={{
-                            position: 'absolute', top: `${scanLine}%`, left: 0, width: '100%', height: '2px',
-                            background: 'rgba(0, 243, 255, 0.2)', boxShadow: '0 0 10px var(--primary-glow)',
-                            zIndex: 5
-                        }}></div>
+                <div className="viz-wrapper" style={{ height: '500px', backgroundColor: '#020408', borderRadius: '16px', overflow: 'hidden', position: 'relative', border: '1px solid #1a1a1a', boxShadow: '0 0 40px rgba(0,0,0,0.8)' }}>
 
-                        {/* Grid Overlay */}
-                        <div style={{
-                            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                            backgroundImage: 'linear-gradient(rgba(0,243,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,243,255,0.05) 1px, transparent 1px)',
-                            backgroundSize: '20px 20px', pointerEvents: 'none'
-                        }}></div>
+                    {/* NASA GRID SYSTEM */}
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: 'radial-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
 
-                        <div className="hud-overlay" style={{ zIndex: 10 }}>
-                            <div style={{ fontSize: '0.8rem', letterSpacing: '4px', marginBottom: '1rem', color: '#888' }}>
-                                // SATELLITE_DOWNLINK_ACTIVE //
-                            </div>
-
-                            {selectedSat ? (
-                                <div style={{ animation: 'fadeIn 0.5s ease-out' }}>
-                                    <h2 style={{ fontFamily: 'Cinzel', fontSize: '2rem', margin: '0 0 1rem 0', color: '#fff' }}>{selectedSat.name}</h2>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', textAlign: 'left' }}>
-                                        <div>
-                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SECTOR_LAT</div>
-                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.latitude || '34.05'}&deg; N</div>
-                                        </div>
-                                        <div>
-                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SECTOR_LON</div>
-                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.longitude || '118.24'}&deg; W</div>
-                                        </div>
-                                        <div>
-                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>ALTI_KM</div>
-                                            <div style={{ fontSize: '1.2rem' }}>{selectedSat.altitude_km} KM</div>
-                                        </div>
-                                        <div>
-                                            <div style={{ fontSize: '0.7rem', color: '#00f3ff55' }}>SIGNAL_STRENGTH</div>
-                                            <div style={{ fontSize: '1.2rem', color: '#00ff88' }}>OPTIMAL</div>
-                                        </div>
-                                    </div>
-                                    <div style={{ marginTop: '2rem', borderTop: '1px solid #333', paddingTop: '1rem', fontSize: '0.8rem', color: '#666' }}>
-                                        CROSS-REFERENCE: NORAD_ID_{selectedSat.norad_id} | STATUS: TRACKING
-                                    </div>
-                                </div>
-                            ) : (
-                                <div style={{ opacity: 0.5 }}>
-                                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📡</div>
-                                    <h3 style={{ fontFamily: 'Cinzel' }}>AWAITING_UPLINK</h3>
-                                    <p>Select an object from the list to initiate tracking</p>
-                                </div>
-                            )}
+                    {/* TOP STATUS BAR */}
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10, background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <div style={{ height: '8px', width: '8px', borderRadius: '50%', backgroundColor: '#00ff88', boxShadow: '0 0 10px #00ff88', animation: 'pulsate 2s infinite' }}></div>
+                            <span style={{ fontSize: '0.7rem', color: '#fff', letterSpacing: '2px', fontWeight: 'bold' }}>NASA // MISSION_CONTROL_DIRECT_LINK</span>
                         </div>
-
-                        {/* Corner Accents */}
-                        <div style={{ position: 'absolute', top: 10, left: 10, width: 20, height: 20, borderTop: '2px solid var(--primary-glow)', borderLeft: '2px solid var(--primary-glow)' }}></div>
-                        <div style={{ position: 'absolute', top: 10, right: 10, width: 20, height: 20, borderTop: '2px solid var(--primary-glow)', borderRight: '2px solid var(--primary-glow)' }}></div>
-                        <div style={{ position: 'absolute', bottom: 10, left: 10, width: 20, height: 20, borderBottom: '2px solid var(--primary-glow)', borderLeft: '2px solid var(--primary-glow)' }}></div>
-                        <div style={{ position: 'absolute', bottom: 10, right: 10, width: 20, height: 20, borderBottom: '2px solid var(--primary-glow)', borderRight: '2px solid var(--primary-glow)' }}></div>
+                        <div style={{ fontSize: '0.6rem', color: '#666', fontFamily: 'monospace' }}>
+                            LATENCY: 14MS | BUFFER: OPTIMAL | CORE_V: 1.02V
+                        </div>
                     </div>
+
+                    {/* MAIN SVG ORBITAL ENGINE */}
+                    <svg viewBox="0 0 400 300" style={{ width: '100%', height: '100%' }}>
+                        <defs>
+                            <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stopColor="#001825" />
+                                <stop offset="100%" stopColor="#020408" />
+                            </radialGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        {/* STAR BACKGROUND (SVG) */}
+                        {[...Array(40)].map((_, i) => (
+                            <circle key={i} cx={Math.random() * 400} cy={Math.random() * 300} r={Math.random() * 0.8} fill="#444" opacity={Math.random()} />
+                        ))}
+
+                        <g transform="translate(200, 150)">
+                            {/* CENTRAL EARTH WIREFRAME */}
+                            <circle r="40" fill="url(#earthGlow)" stroke="#00f3ff" strokeWidth="0.5" opacity="0.3" />
+                            {[...Array(6)].map((_, i) => (
+                                <ellipse key={i} rx="40" ry={40 * Math.cos(i * 0.5)} fill="none" stroke="#00f3ff22" strokeWidth="0.2" transform={`rotate(${i * 30})`} />
+                            ))}
+
+                            {/* ANIMATED ORBIT RINGS */}
+                            {sats.map(s => (
+                                <ellipse key={s.id}
+                                    rx={s.rx} ry={s.ry}
+                                    fill="none"
+                                    stroke={s.color}
+                                    strokeWidth="0.5"
+                                    opacity="0.1"
+                                    transform={`rotate(${s.id * 45})`}
+                                />
+                            ))}
+
+                            {/* MOVING SATELLITE DOTS */}
+                            {sats.map(s => {
+                                const angle = tick * s.speed + s.offset;
+                                const x = s.rx * Math.cos(angle);
+                                const y = s.ry * Math.sin(angle);
+                                // Rotate the dot's position to match ring rotation
+                                const rot = (s.id * 45) * Math.PI / 180;
+                                const rx = x * Math.cos(rot) - y * Math.sin(rot);
+                                const ry = x * Math.sin(rot) + y * Math.cos(rot);
+
+                                return (
+                                    <g key={`sat-${s.id}`} transform={`translate(${rx}, ${ry})`} filter="url(#glow)">
+                                        <circle r="2" fill={s.color} />
+                                        <circle r="4" fill="none" stroke={s.color} strokeWidth="0.5" opacity="0.5">
+                                            <animate attributeName="r" values="2;6" dur="2s" repeatCount="indefinite" />
+                                            <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite" />
+                                        </circle>
+                                    </g>
+                                );
+                            })}
+
+                            {/* SELECTED SATELLITE FOCUS */}
+                            {selectedSat && (
+                                <g transform={`translate(${100 * Math.cos(tick * 0.005)}, ${40 * Math.sin(tick * 0.005)})`}>
+                                    <line x1="0" y1="0" x2="30" y2="-40" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+                                    <rect x="30" y="-60" width="100" height="40" fill="rgba(0,0,0,0.8)" stroke="#fff" strokeWidth="0.5" rx="4" />
+                                    <text x="38" y="-45" fill="#fff" fontSize="8" fontFamily="monospace" fontWeight="bold">TARGET: {selectedSat.name}</text>
+                                    <text x="38" y="-32" fill="#00f3ff" fontSize="6" fontFamily="monospace">COORD: {selectedSat.latitude?.toFixed(2)}, {selectedSat.longitude?.toFixed(2)}</text>
+
+                                    <circle r="4" fill="none" stroke="#fff" strokeWidth="1">
+                                        <animate attributeName="r" values="4;10" dur="1s" repeatCount="indefinite" />
+                                        <animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" />
+                                    </circle>
+                                    <circle r="2" fill="#fff" />
+                                </g>
+                            )}
+                        </g>
+                    </svg>
+
+                    {/* BOTTOM TELEMETRY PANELS */}
+                    <div style={{ position: 'absolute', bottom: 15, left: 15, display: 'flex', gap: '1rem', zIndex: 10 }}>
+                        <div style={{ background: 'rgba(0,243,255,0.05)', padding: '0.8rem', borderRadius: '8px', border: '1px solid rgba(0,243,255,0.2)' }}>
+                            <div style={{ fontSize: '0.5rem', color: '#666' }}>X_COORD_REF</div>
+                            <div style={{ color: '#00f3ff', fontSize: '0.9rem', fontFamily: 'monospace' }}>22.5019 // TRK</div>
+                        </div>
+                        <div style={{ background: 'rgba(0,243,255,0.05)', padding: '0.8rem', borderRadius: '8px', border: '1px solid rgba(0,243,255,0.2)' }}>
+                            <div style={{ fontSize: '0.5rem', color: '#666' }}>Y_COORD_REF</div>
+                            <div style={{ color: '#00f3ff', fontSize: '0.9rem', fontFamily: 'monospace' }}>88.1042 // TRK</div>
+                        </div>
+                    </div>
+
+                    {/* CORNER DECORATION */}
+                    <div style={{ position: 'absolute', bottom: 15, right: 15, textAlign: 'right', fontSize: '0.6rem', color: '#333' }}>
+                        DEEP_SPACE_NETWORK_ID: B-774<br />
+                        ESTABLISHED: 19:12:05 UTC
+                    </div>
+
+                    <style>{`
+                        @keyframes pulsate {
+                            0% { transform: scale(1); opacity: 0.8; }
+                            50% { transform: scale(1.2); opacity: 1; }
+                            100% { transform: scale(1); opacity: 0.8; }
+                        }
+                    `}</style>
                 </div>
             );
         }
+
 
 
         function ForecastView({ t, selectedSat }) {
