@@ -294,7 +294,7 @@
 
         function BellatrixLogo() {
             return (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                <div className="pulse-glow" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
                     <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 8px var(--primary-glow))' }}>
                         <circle cx="50" cy="50" r="40" stroke="url(#grad1_logo)" strokeWidth="4" />
                         <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(25 50 50)" stroke="url(#grad2_logo)" strokeWidth="2" strokeOpacity="0.8" />
@@ -360,11 +360,11 @@
                     </div>
                     <div className="nav-right">
                         <div className="nav-links">
-                            <div className={`nav-item ${currentView === 'home' ? 'active' : ''}`} onClick={() => setView('home')}>{t.nav_home}</div>
-                            <div className={`nav-item ${currentView === 'guide' ? 'active' : ''}`} onClick={() => setView('guide')}>{t.nav_guide}</div>
-                            <div className={`nav-item ${currentView === 'map' ? 'active' : ''}`} onClick={() => setView('map')}>{t.nav_map}</div>
-                            <div className={`nav-item ${currentView === 'forecast' ? 'active' : ''}`} onClick={() => setView('forecast')}>{t.nav_forecast}</div>
-                            <div className={`nav-item ${currentView === 'calc' ? 'active' : ''}`} onClick={() => setView('calc')}>{t.nav_calc}</div>
+                            <div className={`nav-item glow-icon ${currentView === 'home' ? 'active' : ''}`} onClick={() => setView('home')}>{t.nav_home}</div>
+                            <div className={`nav-item glow-icon ${currentView === 'guide' ? 'active' : ''}`} onClick={() => setView('guide')}>{t.nav_guide}</div>
+                            <div className={`nav-item glow-icon ${currentView === 'map' ? 'active' : ''}`} onClick={() => setView('map')}>{t.nav_map}</div>
+                            <div className={`nav-item glow-icon ${currentView === 'forecast' ? 'active' : ''}`} onClick={() => setView('forecast')}>{t.nav_forecast}</div>
+                            <div className={`nav-item glow-icon ${currentView === 'calc' ? 'active' : ''}`} onClick={() => setView('calc')}>{t.nav_calc}</div>
                         </div>
                         <div className="lang-switch">
                             <div className={`lang-opt ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</div>
@@ -498,7 +498,7 @@
 
             return (
                 <div
-                    className={`sat-card risk-${riskClass} ${isSelected ? 'selected' : ''}`}
+                    className={`sat-card glow-card risk-${riskClass} ${isSelected ? 'selected' : ''}`}
                     onClick={() => { console.log("Selecting sat:", sat.norad_id); onClick(sat); }}
                     style={{ borderLeft: `4px solid ${badgeColor}`, border: isSelected ? `1px solid ${badgeColor}` : '' }}
                 >
@@ -530,7 +530,7 @@
                         {t.detail_title}: {sat.name}
                         <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
                             {/* Show on Map Button */}
-                            <button onClick={onShowMap} style={{
+                            <button className="glow-icon" onClick={onShowMap} style={{
                                 background: 'transparent',
                                 border: '1px solid #00f3ff', color: '#00f3ff',
                                 padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem'
@@ -538,7 +538,7 @@
                                 🗺️ {t.btn_map}
                             </button>
                             {/* CSV Export */}
-                            <a href={`${API_BASE}/export/csv/${sat.norad_id}`} download style={{
+                            <a href={`${API_BASE}/export/csv/${sat.norad_id}`} download className="glow-icon" style={{
                                 background: 'transparent',
                                 border: '1px solid #00ff88', color: '#00ff88',
                                 padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem',
@@ -547,7 +547,7 @@
                                 📊 {t.btn_csv}
                             </a>
                             {/* PDF Export */}
-                            <a href={`${API_BASE}/export/pdf/${sat.norad_id}`} download style={{
+                            <a href={`${API_BASE}/export/pdf/${sat.norad_id}`} download className="glow-icon" style={{
                                 background: 'transparent',
                                 border: '1px solid #bc13fe', color: '#bc13fe',
                                 padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem',
@@ -1138,12 +1138,14 @@
                                 value={searchId}
                                 onChange={(e) => setSearchId(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && performSearch()}
+                                className="glow-card"
                                 style={{
                                     flex: 1, padding: '0.8rem', background: 'rgba(255,255,255,0.05)',
-                                    border: '1px solid var(--card-border)', color: 'white', borderRadius: '8px'
+                                    border: '1px solid var(--card-border)', color: 'white', borderRadius: '8px',
+                                    outline: 'none'
                                 }}
                             />
-                            <button className="cta-button" style={{ padding: '0 1rem', fontSize: '0.8rem' }} onClick={performSearch}>
+                            <button className="cta-button glow-icon" style={{ padding: '0 1rem', fontSize: '0.8rem' }} onClick={performSearch}>
                                 {t.calc_add}
                             </button>
 

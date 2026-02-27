@@ -14,6 +14,52 @@
     --risk-low: #00f3ff;
     --risk-med: #ffaa00;
     --risk-high: #ff0055;
+
+    /* New Utility Tokens */
+    --glow-soft: 0 0 15px rgba(0, 243, 255, 0.2);
+    --glow-med: 0 0 25px rgba(0, 243, 255, 0.4);
+    --glow-strong: 0 0 40px rgba(0, 243, 255, 0.6);
+}
+
+/* --- Premium Glow Utilities --- */
+.glow-icon {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.3));
+}
+
+.glow-icon:hover {
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+    transform: scale(1.1);
+}
+
+.glow-card {
+    box-shadow: var(--glow-soft);
+    border: 1px solid rgba(0, 243, 255, 0.3) !important;
+}
+
+.glow-card:hover {
+    box-shadow: var(--glow-med);
+    border-color: var(--primary-glow) !important;
+}
+
+.glow-text {
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.pulse-glow {
+    animation: pulse-glow-anim 3s infinite ease-in-out;
+}
+
+@keyframes pulse-glow-anim {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.2));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.6));
+    }
 }
 
 * {
@@ -37,8 +83,26 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* Deep space radial gradient */
     background: radial-gradient(circle at 50% 120%, #1a0b2e 0%, #050510 50%, #000000 100%);
+    overflow: hidden;
+}
+
+#star-canvas::after {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: calc(100% + 200px);
+    height: calc(100% + 200px);
+    background: transparent;
+    /* Static CSS Stars - Zero CPU usage */
+    box-shadow:
+        10vw 20vh 1px #fff, 30vw 10vh 1px #888, 50vw 40vh 1.5px #fff, 80vw 5vh 1px #999,
+        90vw 50vh 1px #fff, 15vw 80vh 1.5px #fff, 40vw 90vh 1px #777, 70vw 70vh 1.5px #fff,
+        5vw 15vh 0.5px #fff, 25vw 35vh 1px #aaa, 60vw 15vh 1.5px #00f3ff, 85vw 85vh 1px #fff,
+        12vw 55vh 1px #bc13fe, 33vw 66vh 1px #fff, 55vw 22vh 0.5px #fff, 77vw 44vh 1px #00f3ff;
+    opacity: 0.4;
+    filter: blur(0.5px);
 }
 
 #root {
