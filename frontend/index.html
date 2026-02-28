@@ -294,8 +294,8 @@
 
         function BellatrixLogo() {
             return (
-                <div className="pulse-glow" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-                    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 8px var(--primary-glow))' }}>
+                <div className="pulse-glow" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', opacity: 0.85 }}>
+                    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 3px var(--primary-glow))' }}>
                         <circle cx="50" cy="50" r="40" stroke="url(#grad1_logo)" strokeWidth="4" />
                         <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(25 50 50)" stroke="url(#grad2_logo)" strokeWidth="2" strokeOpacity="0.8" />
                         <path d="M50 20L58 42L82 42L62 58L70 80L50 65L30 80L38 58L18 42L42 42L50 20Z" fill="white" />
@@ -379,11 +379,11 @@
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="section-container hero-section">
-                        <div style={{ transform: 'scale(1.5)', marginBottom: '1rem' }}><BellatrixLogo /></div>
+                        <div style={{ transform: 'scale(1.2)', marginBottom: '1.5rem', opacity: 0.9 }}><BellatrixLogo /></div>
                         <p className="hero-subtitle">{t.home_sub}</p>
                         <button className="cta-button" onClick={() => setView('calc')}>{t.start_btn}</button>
 
-                        <div style={{ marginTop: '4rem', maxWidth: '800px', textAlign: 'left', background: 'rgba(255,255,255,0.05)', padding: '2rem', borderRadius: '12px' }}>
+                        <div className="glow-card" style={{ marginTop: '4rem', maxWidth: '800px', textAlign: 'left', background: 'rgba(255,255,255,0.03)', padding: '2rem', borderRadius: '12px' }}>
                             <h3 style={{ fontFamily: 'Cinzel', color: 'var(--primary-glow)' }}>{t.mission_title}</h3>
                             <p style={{ color: '#ccc', lineHeight: '1.6' }}>{t.mission_txt}</p>
                             <hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '1rem 0' }} />
@@ -396,21 +396,21 @@
                         <p style={{ color: '#aaa', marginBottom: '2rem' }}>{t.stem_sub}</p>
 
                         <div className="info-grid">
-                            <div className="info-card" style={{ borderColor: '#00f3ff' }}>
+                            <div className="info-card glow-card">
                                 <h3 style={{ color: '#00f3ff' }}>🎓 {t.target_1_t}</h3>
                                 <p style={{ color: '#ccc' }}>{t.target_1_d}</p>
                             </div>
-                            <div className="info-card" style={{ borderColor: '#bc13fe' }}>
+                            <div className="info-card glow-card">
                                 <h3 style={{ color: '#bc13fe' }}>🔬 {t.target_2_t}</h3>
                                 <p style={{ color: '#ccc' }}>{t.target_2_d}</p>
                             </div>
-                            <div className="info-card" style={{ borderColor: '#ffaa00' }}>
+                            <div className="info-card glow-card">
                                 <h3 style={{ color: '#ffaa00' }}>🔭 {t.target_3_t}</h3>
                                 <p style={{ color: '#ccc' }}>{t.target_3_d}</p>
                             </div>
                         </div>
 
-                        <div style={{ marginTop: '2rem', padding: '1.5rem', border: '1px solid #444', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
+                        <div className="glow-card" style={{ marginTop: '2rem', padding: '1.5rem', border: '1px solid #444', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
                             <h3 style={{ fontFamily: 'Cinzel', color: 'white' }}>⚛️ {t.why_stem_t}</h3>
                             <p style={{ color: '#ccc', fontStyle: 'italic' }}>{t.why_stem_d}</p>
                         </div>
@@ -419,10 +419,10 @@
                     <div className="section-container">
                         <h2 style={{ fontFamily: 'Cinzel', color: 'white' }}>{t.about_title}</h2>
                         <div className="info-grid">
-                            <div className="info-card"><h3>{t.leo_t}</h3><p style={{ color: '#aaa' }}>{t.leo_d}</p></div>
-                            <div className="info-card"><h3>{t.meo_t}</h3><p style={{ color: '#aaa' }}>{t.meo_d}</p></div>
-                            <div className="info-card"><h3>{t.geo_t}</h3><p style={{ color: '#aaa' }}>{t.geo_d}</p></div>
-                            <div className="info-card"><h3>{t.ks_t}</h3><p style={{ color: '#aaa' }}>{t.ks_d}</p></div>
+                            <div className="info-card glow-card"><h3>{t.leo_t}</h3><p style={{ color: '#aaa' }}>{t.leo_d}</p></div>
+                            <div className="info-card glow-card"><h3>{t.meo_t}</h3><p style={{ color: '#aaa' }}>{t.meo_d}</p></div>
+                            <div className="info-card glow-card"><h3>{t.geo_t}</h3><p style={{ color: '#aaa' }}>{t.geo_d}</p></div>
+                            <div className="info-card glow-card"><h3>{t.ks_t}</h3><p style={{ color: '#aaa' }}>{t.ks_d}</p></div>
                         </div>
                     </div>
                 </div >
@@ -431,7 +431,7 @@
 
         function GuideView({ t }) {
             return (
-                <div className="section-container" style={{ maxWidth: '800px' }}>
+                <div className="section-container glow-card" style={{ maxWidth: '800px' }}>
                     <h2 style={{ fontFamily: 'Cinzel', color: 'white' }}>{t.guide_title}</h2>
 
                     <div style={{ marginBottom: '2rem' }}>
@@ -1129,7 +1129,7 @@
 
             return (
                 <div className="calculator-layout">
-                    <div style={{ gridArea: 'list', display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: '0', overflowY: 'auto', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '12px' }}>
+                    <div className="glow-card" style={{ gridArea: 'list', display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: '0', overflowY: 'auto', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '12px' }}>
                         {/* Search Bar */}
                         <div style={{ display: 'flex', gap: '0.5rem', position: 'relative' }}>
                             <input
