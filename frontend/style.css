@@ -143,7 +143,15 @@ body {
         20vw 60vh 1px #fff, 45vw 15vh 1px #888, 65vw 80vh 1.5px #fff, 5vw 95vh 1px #999,
         95vw 10vh 1px #fff, 22vw 30vh 1.5px #fff, 48vw 70vh 1px #777, 88vw 35vh 1.5px #fff,
         3vw 40vh 0.5px #fff, 38vw 55vh 1px #aaa, 52vw 5vh 1.5px #00f3ff, 72vw 92vh 1px #fff,
-        2vw 22vh 1px #bc13fe, 66vw 33vh 1px #fff, 18vw 48vh 0.5px #fff, 82vw 82vh 1px #00f3ff;
+        2vw 22vh 1px #bc13fe, 66vw 33vh 1px #fff, 18vw 48vh 0.5px #fff, 82vw 82vh 1px #00f3ff,
+        14vw 14vh 1px #fff, 28vw 48vh 1px #888, 42vw 88vh 1.5px #fff, 56vw 25vh 1px #999,
+        70vw 95vh 1px #fff, 84vw 18vh 1.5px #fff, 98vw 68vh 1px #777, 10vw 70vh 1.5px #fff,
+        24vw 85vh 0.5px #fff, 36vw 25vh 1px #aaa, 50vw 75vh 1.5px #00f3ff, 64vw 35vh 1px #fff,
+        78vw 55vh 1px #bc13fe, 92vw 46vh 1px #fff, 16vw 92vh 0.5px #fff, 32vw 14vh 1px #00f3ff,
+        46vw 36vh 1px #fff, 60vw 65vh 1px #888, 74vw 10vh 1.5px #fff, 88vw 85vh 1px #999,
+        8vw 50vh 1px #fff, 34vw 80vh 1.5px #fff, 58vw 50vh 1px #777, 76vw 25vh 1.5px #fff,
+        6vw 80vh 0.5px #fff, 44vw 45vh 1px #aaa, 62vw 8vh 1.5px #00f3ff, 80vw 62vh 1px #fff,
+        18vw 32vh 1px #bc13fe, 68vw 53vh 1px #fff, 26vw 18vh 0.5px #fff, 94vw 72vh 1px #00f3ff;
     opacity: 0.4;
     filter: blur(0.5px);
 }

@@ -333,7 +333,7 @@
                 canvas.width = width; canvas.height = height;
                 const stars = [];
                 // Static stars - No animation = 0% CPU for this component
-                for (let i = 0; i < 50; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 1.5, color: Math.random() > 0.8 ? '#bc13fe' : '#444' });
+                for (let i = 0; i < 200; i++) stars.push({ x: Math.random() * width, y: Math.random() * height, size: Math.random() * 1.5, color: Math.random() > 0.8 ? '#bc13fe' : '#444' });
 
                 const draw = () => {
                     ctx.clearRect(0, 0, width, height);
@@ -611,7 +611,7 @@
 
             // OPTIMIZATION: Cache starfield once to stop Math.random() churn in every render
             const stars = React.useMemo(() => {
-                return [...Array(40)].map((_, i) => ({
+                return [...Array(150)].map((_, i) => ({
                     cx: Math.random() * 400,
                     cy: Math.random() * 300,
                     r: Math.random() * 0.8,
