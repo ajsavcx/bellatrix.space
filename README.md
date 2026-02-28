@@ -6,6 +6,8 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 
+🔗 **[Презентация проекта (Pitch-deck)](https://www.canva.com/design/DAHCmxTV5w0/c2jDxXRXJeKugYjrexCXOQ/edit?utm_content=DAHCmxTV5w0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**
+
 ---
 
 ## 📖 Project Overview
